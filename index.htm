@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>لعبة نهائية بسيطة - انتقال مضمون</title>
+<title>فحص خفي - التفاصيل تظهر بالعدسة فقط - عالم ندى</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap');
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Cairo',sans-serif}
@@ -11,14 +11,18 @@ body{background:#FFFBEB;color:#222;min-height:100vh}
 .header{display:flex;justify-content:space-between;padding:12px;background:#fff;border:3px solid #222;border-radius:16px;margin:10px}
 .card{background:#fff;border:3px solid #222;border-radius:20px;padding:16px;box-shadow:6px 6px 0 #222;margin:10px}
 .btn{width:100%;height:50px;border:3px solid #222;border-radius:14px;background:#FFD93D;font-weight:900;font-size:16px;cursor:pointer;box-shadow:4px 4px 0 #222}
-.btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 #222}
 .progress{height:12px;background:#fff;border:3px solid #222;border-radius:20px;overflow:hidden;margin:10px}
 .bar{height:100%;background:linear-gradient(90deg,#FFD93D,#FF8C42);width:0%;transition:width 0.5s}
-.scene{position:relative;width:100%;height:380px;border:3px solid #222;border-radius:16px;overflow:hidden;background:#fff;display:flex;align-items:center;justify-content:center}
-.lens{position:absolute;width:160px;height:160px;border-radius:50%;border:5px solid #FFD93D;background:rgba(255,255,255,0.9);box-shadow:0 0 0 3px #222;pointer-events:none;z-index:10;display:none;overflow:hidden}
+.scene{position:relative;width:100%;height:420px;border:3px solid #222;border-radius:16px;overflow:hidden;background:#fff;display:flex;align-items:center;justify-content:center}
+.scene-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:120px;filter:blur(8px);opacity:0.5;transition:all 0.3s}
+.lens{position:absolute;width:180px;height:180px;border-radius:50%;border:5px solid #FFD93D;background:rgba(255,255,255,0.95);box-shadow:0 0 0 3px #222,0 0 0 8px rgba(255,217,61,0.3);pointer-events:none;z-index:10;overflow:hidden;display:none}
 .lens-handle{position:absolute;width:70px;height:18px;background:#FF8C42;border:3px solid #222;border-left:none;left:100%;top:50%;transform:translateY(-50%);border-radius:0 10px 10px 0}
-.target{position:absolute;min-width:70px;height:44px;border-radius:12px;background:#fff;border:3px solid #222;font-size:12px;font-weight:900;box-shadow:3px 3px 0 #222;cursor:pointer;z-index:5}
-.target.found{background:#FFD93D;pointer-events:none}
+.lens-inner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:80px;transform:scale(2.2)}
+.detail{position:absolute;width:60px;height:60px;border-radius:50%;background:#fff;border:3px solid #222;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;box-shadow:4px 4px 0 #222;transform:translate(-50%,-50%) scale(0);transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s;opacity:0;pointer-events:none;z-index:5}
+.detail.visible{transform:translate(-50%,-50%) scale(1);opacity:1;pointer-events:auto;cursor:pointer}
+.detail.found{background:#FFD93D;transform:translate(-50%,-50%) scale(0.9);opacity:0.7;pointer-events:none}
+.detail.found::after{content:'✅';position:absolute;top:-8px;right:-8px;font-size:16px;background:#fff;border:2px solid #222;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center}
+.hidden-dot{position:absolute;width:18px;height:18px;background:#111;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 10px rgba(0,0,0,0.3);z-index:2;transition:opacity 0.3s}
 .qbox{margin-top:10px;background:#FFFBEB;border:3px solid #222;border-radius:14px;padding:12px}
 .opt{width:100%;padding:10px;border:3px solid #222;border-radius:10px;background:#fff;margin-bottom:6px;font-weight:700;cursor:pointer;text-align:right}
 .opt.correct{background:#6BCB77;color:#fff}.opt.wrong{background:#FF6B9D;color:#fff}
@@ -27,16 +31,22 @@ body{background:#FFFBEB;color:#222;min-height:100vh}
 </head>
 <body>
 <div class="header">
-  <div style="font-weight:900">🔍 عالم ندى</div>
+  <div style="font-weight:900">🔍 عالم <span style="background:#FFD93D;padding:2px 8px;border-radius:10px;border:2px solid #222">ندى</span> - فحص خفي</div>
   <div><span id="score">⭐0</span> <span id="hearts">❤️❤️❤️</span> <span id="level">مستوى 1</span></div>
 </div>
 
 <div class="screen active" id="s0" style="text-align:center;padding:20px">
   <div class="card">
-    <div style="font-size:40px">🔍🪲🍃🌍</div>
-    <h2>فحص كامل بالعدسة</h2>
-    <p style="font-size:12px;margin:10px 0">المرحلة 1: خنفساء (5) - المرحلة 2: ورقة (5) - المرحلة 3: تربة (5)<br>العدسة تكبر - اضغطي الأهداف البيضاء - جاوبي - انتقلي تلقائياً</p>
-    <button class="btn" onclick="startGame()">ابدأي 🔬</button>
+    <div style="font-size:40px">🔍🪲✨</div>
+    <h2>فحص خفي بالعدسة</h2>
+    <p style="font-size:12px;margin:12px 0;background:#fff;border:2px solid #222;border-radius:12px;padding:10px;line-height:1.8;text-align:right">
+      <b>🔬 بدون عدسة:</b> ترين نقطة سوداء صغيرة فقط<br>
+      <b>🔍 مع العدسة:</b> لما تقربي العدسة الصفراء، يظهر الرأس والعيون والقرون والأرجل!<br>
+      <b>المرحلة 1:</b> خنفساء - الرأس والأرجل مخفية، تظهر فقط بالعدسة<br>
+      <b>المرحلة 2:</b> ورقة - العروق مخفية، تظهر فقط بالعدسة<br>
+      <b>المرحلة 3:</b> تربة - الحشرات مخفية، تظهر فقط بالعدسة
+    </p>
+    <button class="btn" onclick="startGame()">ابدأي الفحص الخفي 🔬🚀</button>
   </div>
 </div>
 
@@ -49,9 +59,10 @@ body{background:#FFFBEB;color:#222;min-height:100vh}
     <div id="stageName" style="background:#4D96FF;color:#fff;padding:4px 10px;border-radius:12px;display:inline-block;font-size:11px;font-weight:800;border:2px solid #222">المرحلة 1</div>
     <div id="instruction" style="margin:8px 0;background:#fff;border:2px solid #222;border-radius:10px;padding:8px;font-size:12px;font-weight:800"></div>
     <div class="scene" id="scene">
-      <div id="sceneContent" style="font-size:100px"></div>
-      <div class="lens" id="lens"><div id="lensContent" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:80px;transform:scale(2)"></div><div class="lens-handle"></div></div>
-      <div id="targets"></div>
+      <div class="scene-bg" id="sceneBg">🪲</div>
+      <div id="dots"></div>
+      <div id="details"></div>
+      <div class="lens" id="lens"><div class="lens-inner" id="lensInner"></div><div class="lens-handle"></div></div>
     </div>
     <div class="qbox" id="qbox" style="display:none">
       <h3 id="qtext" style="font-size:13px;font-weight:900;margin-bottom:8px"></h3>
@@ -67,15 +78,14 @@ body{background:#FFFBEB;color:#222;min-height:100vh}
     <div style="font-size:50px" id="transIcon">🎉</div>
     <h2 id="transTitle">انتقلتِ للمستوى 2</h2>
     <p id="transDesc"></p>
-    <p style="font-size:11px;opacity:0.6;margin-top:10px">الانتقال تلقائي بعد ثانيتين...</p>
   </div>
 </div>
 
 <div class="screen" id="s3" style="text-align:center;padding:20px">
   <div class="card">
     <div style="font-size:50px">🏆</div>
-    <h2>أنت عالمة مبدعة!</h2>
-    <p>النقاط: <span id="finalScore">0</span> | الصحيح: <span id="finalCorrect">0/15</span> | النسبة: <span id="finalPercent">0%</span></p>
+    <h2>أنت عالمة مبدعة! 🔬✨</h2>
+    <p>النقاط: <span id="finalScore">0</span> | الصحيح: <span id="finalCorrect">0/15</span></p>
     <button class="btn" style="margin-top:12px" onclick="startGame()">إعادة 🔄</button>
   </div>
 </div>
@@ -91,34 +101,26 @@ body{background:#FFFBEB;color:#222;min-height:100vh}
 
 <script>
 const LEVELS = [
-  {stage:1, icon:"🪲", name:"خنفساء الروث - فحص الرأس", bg:"#FFFBEB", emoji:"🪲", instruction:"حركي العدسة فوق الخنفساء - اضغطي على العيون والقرون", targets:[{x:30,y:30,label:"👁️ عيون"},{x:70,y:20,label:"📡 قرون"}], q:"ماذا رأيتِ في رأس الخنفساء تحت العدسة؟", opts:["لا شيء","عيون سوداء بلمعان أبيض وقرون بكرة حساسة","عين واحدة","لا رأس"], c:1, exp:"الرأس: عينان بلمعان وقرنان بكرة حساسة."},
-  {stage:1, icon:"🪲", name:"خنفساء الروث - فحص الأرجل الأمامية", bg:"#FFFBEB", emoji:"🪲", instruction:"افحصي الأرجل الأمامية - اضغطي على الهدفين", targets:[{x:20,y:50,label:"🦵 يمنى"},{x:80,y:50,label:"🦵 يسرى"}], q:"كم عدد الأرجل الأمامية؟", opts:["لا يوجد","2 رجل أمامية قوية للحفر","4","8"], c:1, exp:"2 رجل أمامية قوية للحفر."},
-  {stage:1, icon:"🪲", name:"خنفساء الروث - فحص الظهر", bg:"#FFFBEB", emoji:"🪲", instruction:"افحصي الأرجل الخلفية ولمعان الظهر", targets:[{x:20,y:70,label:"🦵 خلفية"},{x:80,y:70,label:"✨ لمعان"}], q:"ماذا عن الأرجل الخلفية ولمعان الظهر؟", opts:["ضعيفة","أرجل خلفية قوية للدفع ولمعان كيتيني","لا فائدة","للزينة"], c:1, exp:"الخلفية قوية للدفع والظهر لامع من الكيتين."},
-  {stage:1, icon:"🪲", name:"خنفساء الروث - فحص القرون", bg:"#FFFBEB", emoji:"🪲", instruction:"افحصي قرون الاستشعار", targets:[{x:30,y:25,label:"📡 قرن"},{x:70,y:25,label:"📡 قرن"}], q:"ما وظيفة قرون الاستشعار؟", opts:["للزينة","أعضاء حساسة للشم واللمس","لا وظيفة","زائدة"], c:1, exp:"القرون للشم واللمس."},
-  {stage:1, icon:"🪲", name:"خنفساء الروث - فحص المفاصل", bg:"#FFFBEB", emoji:"🪲", instruction:"افحصي مفاصل الأرجل", targets:[{x:40,y:50,label:"📏 مفاصل"},{x:60,y:70,label:"📏 خط وسط"}], q:"ما أهمية العدسة في فحص الخنفساء؟", opts:["لا فائدة","بدون عدسة نقطة، بالعدسة عيون وقرون ومفاصل وشعيرات","تصغر","تغير اللون"], c:1, exp:"بدون عدسة نقطة، بالعدسة عالم كامل."},
-  {stage:2, icon:"🍃", name:"ورقة شجر - فحص العرق الوسطي", bg:"#F0FDF4", emoji:"🍃", instruction:"حركي العدسة فوق الورقة - اضغطي على العروق", targets:[{x:50,y:20,label:"🌿 وسطي"},{x:60,y:40,label:"🌿 جانبي"}], q:"ماذا رأيتِ في أعلى الورقة؟", opts:["لون أخضر فقط","عرق وسطي سميك وجانبي ينقلان الماء والغذاء","لا شيء","فارغة"], c:1, exp:"عرق وسطي وجانبي - شبكة نقل."},
-  {stage:2, icon:"🍃", name:"ورقة شجر - فحص العروق الجانبية", bg:"#F0FDF4", emoji:"🍃", instruction:"افحصي العروق الجانبية", targets:[{x:30,y:50,label:"🌿 جانبي"},{x:70,y:50,label:"🌿 جانبي"}], q:"ما وظيفة العروق الجانبية؟", opts:["لا يوجد","تنقل الغذاء من الوسطي للأطراف","للزينة","خطأ"], c:1, exp:"الجانبية تنقل الغذاء."},
-  {stage:2, icon:"🍃", name:"ورقة شجر - فحص العروق الدقيقة", bg:"#F0FDF4", emoji:"🍃", instruction:"افحصي العروق الثانوية والخلايا", targets:[{x:50,y:40,label:"🔬 دقيقة"},{x:50,y:70,label:"🔬 خلايا"}], q:"ماذا تمثل العروق الدقيقة والنقاط؟", opts:["غبار","عروق ثانوية دقيقة وخلايا مصنع الغذاء","حشرات","لا شيء"], c:1,exp:"الثانوية توزع، النقاط خلايا."},
-  {stage:2, icon:"🍃", name:"ورقة شجر - فحص الشعيرات", bg:"#F0FDF4", emoji:"🍃", instruction:"افحصي الشعيرات على الحواف", targets:[{x:20,y:50,label:"🌱 شعيرات"},{x:80,y:50,label:"🌱 شعيرات"}], q:"لماذا يوجد شعيرات على حافة الورقة؟", opts:["لا فائدة","لحماية الورقة وتقليل فقدان الماء","للزينة","خطأ"], c:1, exp:"الشعيرات تحمي وتقلل تبخر الماء."},
-  {stage:2, icon:"🍃", name:"ورقة شجر - فحص اللمعان", bg:"#F0FDF4", emoji:"🍃", instruction:"افحصي لمعان سطح الورقة", targets:[{x:50,y:40,label:"✨ لمعان"},{x:50,y:60,label:"🌿 سطح"}], q:"ماذا تستنتجين من فحص الورقة؟", opts:["بسيطة","الورقة عالم معقد: شبكة عروق، خلايا، شعيرات","لا شيء","فارغة"], c:1, exp:"الورقة عالم معقد."},
-  {stage:3, icon:"🌍", name:"التربة - فحص الطبقات والجذور", bg:"#FDE68A", emoji:"🌍", instruction:"حركي العدسة فوق التربة - شوفي الطبقات والجذور", targets:[{x:30,y:30,label:"🪨 حصى"},{x:60,y:60,label:"🌿 جذر"}], q:"ماذا رأيتِ في أعلى التربة؟", opts:["تراب فقط","طبقات تربة مختلفة وحصى وجذور","لا شيء","ماء"], c:1, exp:"طبقات بألوان مختلفة، حصى، جذور."},
-  {stage:3, icon:"🌍", name:"التربة - فحص النمل", bg:"#FDE68A", emoji:"🐜", instruction:"افحصي النمل في التربة", targets:[{x:25,y:30,label:"🐜 نملة"},{x:70,y:50,label:"🐜 نملة"}], q:"ماذا تفعل النملة في التربة؟", opts:["نائمة","تنقل غذاء وتنظف التربة وتحفر أنفاقاً","لا شيء","تأكل التربة"], c:1, exp:"النمل ينقل الغذاء وينظف ويحفر."},
-  {stage:3, icon:"🌍", name:"التربة - فحص الدودة", bg:"#FDE68A", emoji:"🪱", instruction:"افحصي دودة الأرض", targets:[{x:30,y:60,label:"🪱 دودة"},{x:60,y:60,label:"🪱 حلقات"}], q:"ما وظيفة دودة الأرض؟", opts:["مؤذية","تقلب التربة وتجعلها خصبة - صديقة الفلاح","تأكل النباتات","لا فائدة"], c:1, exp:"دودة الأرض تقلب التربة وتجعلها خصبة."},
-  {stage:3, icon:"🌍", name:"التربة - فحص البذور", bg:"#FDE68A", emoji:"🌱", instruction:"افحصي البذور المدفونة", targets:[{x:30,y:40,label:"🌱 بذرة"},{x:75,y:50,label:"🌱 بذرة"}], q:"ماذا عن البذور المدفونة؟", opts:["حجارة","بذور صغيرة ستنبت لتصبح نباتات جديدة","لا شيء","ماء"], c:1, exp:"بذور ستنبت لتصبح نباتات."},
-  {stage:3, icon:"🌍", name:"التربة - فحص الفطريات", bg:"#FDE68A", emoji:"🍄", instruction:"افحصي الفطريات والجذور الدقيقة", targets:[{x:30,y:20,label:"🍄 فطريات"},{x:50,y:70,label:"🌿 جذور"}], q:"ماذا تستنتجين من فحص التربة؟", opts:["فارغة","التربة عالم حي كامل: طبقات، جذور، كائنات، بذور، فطريات","لا شيء","تراب فقط"], c:1, exp:"التربة نظام متكامل لا نراه بدون عدسة."}
+  {stage:1, icon:"🪲", name:"خنفساء الروث - فحص خفي", bg:"#FFFBEB", emoji:"⚫", lensEmoji:"🪲", instruction:"بدون عدسة ترين نقطة سوداء فقط - حركي العدسة الصفراء لتظهر التفاصيل المخفية!", targets:[{x:35,y:30,label:"👁️",name:"عيون",detail:"👁️ عيون سوداء"},{x:65,y:20,label:"📡",name:"قرون",detail:"📡 قرون بكرة"}], q:"ماذا ظهر تحت العدسة في رأس الخنفساء؟", opts:["لا شيء","عيون سوداء بلمعان وقرون بكرة حساسة - كانت مخفية بدون عدسة!","عين واحدة","لا رأس"], c:1, exp:"بدون عدسة: نقطة سوداء فقط. بالعدسة: ظهرت عينان بلمعان وقرنان - كانت مخفية!"},
+  {stage:1, icon:"🪲", name:"خنفساء الروث - أرجل مخفية", bg:"#FFFBEB", emoji:"⚫", lensEmoji:"🦵", instruction:"الأرجل الأمامية مخفية تحت الجسم - حركي العدسة لتظهر!", targets:[{x:25,y:55,label:"🦵",name:"رجل يمنى",detail:"🦵 رجل أمامية"},{x:75,y:55,label:"🦵",name:"رجل يسرى",detail:"🦵 رجل أمامية"}], q:"أين كانت الأرجل الأمامية قبل العدسة؟", opts:["ظاهرة","مخفية تحت الجسم - لا ترى بدون عدسة","لا يوجد","في السماء"], c:1, exp:"الأرجل كانت مخفية تحت الجسم - العدسة أظهرتها!"},
+  {stage:1, icon:"🪲", name:"خنفساء الروث - ظهر مخفي", bg:"#FFFBEB", emoji:"⚫", lensEmoji:"✨", instruction:"لمعان الظهر ومفاصل الأرجل مخفية - حركي العدسة!", targets:[{x:25,y:75,label:"🦵",name:"خلفية",detail:"🦵 رجل خلفية"},{x:75,y:70,label:"✨",name:"لمعان",detail:"✨ غطاء لامع"}], q:"ماذا اكتشفتِ بالعدسة عن ظهر الخنفساء؟", opts:["لا شيء","لمعان كيتيني وخط وسط ومفاصل - كان مخفياً!","مطلي","مضيء"], c:1, exp:"الظهر كان أسود فقط، بالعدسة ظهر لمعان الكيتين وخط وسط ومفاصل!"},
+  {stage:1, icon:"🪲", name:"خنفساء الروث - قرون مخفية", bg:"#FFFBEB", emoji:"⚫", lensEmoji:"📡", instruction:"قرون الاستشعار دقيقة جداً - لا ترى بدون عدسة!", targets:[{x:30,y:20,label:"📡",name:"قرن",detail:"📡 قرن حساس"},{x:70,y:20,label:"📡",name:"قرن",detail:"📡 قرن حساس"}], q:"لماذا لا نرى قرون الاستشعار بدون عدسة؟", opts:["لا يوجد","لأنها دقيقة جداً - تحتاج عدسة","للزينة","خطأ"], c:1, exp:"القرون دقيقة جداً - لا ترى بالعين!"},
+  {stage:1, icon:"🪲", name:"خنفساء الروث - مفاصل مخفية", bg:"#FFFBEB", emoji:"⚫", lensEmoji:"🔬", instruction:"مفاصل الأرجل وشعيراتها مخفية تماماً بدون عدسة!", targets:[{x:40,y:50,label:"🔬",name:"مفاصل",detail:"🔬 مفاصل وشعيرات"},{x:60,y:70,label:"🔬",name:"شعيرات",detail:"🔬 شعيرات حسية"}], q:"ما أهمية العدسة؟", opts:["لا فائدة","بدون عدسة نقطة سوداء، بالعدسة يظهر الرأس والعيون والقرون والأرجل بمفاصلها وشعيراتها ولمعانها - كانت كلها مخفية!","تصغر","تغير اللون"], c:1, exp:"العدسة كشفت عالماً مخفياً: عيون، قرون، أرجل بمفاصل وشعيرات ولمعان!"},
+  {stage:2, icon:"🍃", name:"ورقة شجر - عروق مخفية", bg:"#F0FDF4", emoji:"🟢", lensEmoji:"🌿", instruction:"بدون عدسة ترين لون أخضر فقط - حركي العدسة لتظهر العروق المخفية!", targets:[{x:50,y:25,label:"🌿",name:"وسطي",detail:"🌿 عرق وسطي"},{x:65,y:40,label:"🌿",name:"جانبي",detail:"🌿 عرق جانبي"}], q:"ماذا كان مخفياً في الورقة بدون عدسة؟", opts:["لا شيء","العرق الوسطي والجانبي - كانت تبدو لون أخضر فقط!","فارغة","ماء"], c:1, exp:"بدون عدسة: لون أخضر فقط. بالعدسة: ظهر عرق وسطي وجانبي كانا مخفيين!"},
+  {stage:2, icon:"🍃", name:"ورقة شجر - عروق جانبية مخفية", bg:"#F0FDF4", emoji:"🟢", lensEmoji:"🌿", instruction:"العروق الجانبية دقيقة - حركي العدسة!", targets:[{x:30,y:50,label:"🌿",name:"جانبي",detail:"🌿 عرق جانبي"},{x:70,y:50,label:"🌿",name:"جانبي",detail:"🌿 عرق جانبي"}], q:"أين كانت العروق الجانبية؟", opts:["ظاهرة","مخفية - لا ترى بدون عدسة","للزينة","خطأ"], c:1, exp:"العروق الجانبية دقيقة ومخفية بدون عدسة!"},
+  {stage:2, icon:"🍃", name:"ورقة شجر - خلايا مخفية", bg:"#F0FDF4", emoji:"🟢", lensEmoji:"🔬", instruction:"العروق الثانوية والخلايا لا ترى بالعين!", targets:[{x:50,y:40,label:"🔬",name:"دقيقة",detail:"🔬 عروق ثانوية"},{x:50,y:70,label:"🔬",name:"خلايا",detail:"🔬 خلايا نباتية"}], q:"ماذا تمثل النقاط الصغيرة التي ظهرت بالعدسة؟", opts:["غبار","خلايا نباتية - كانت مخفية تماماً بدون عدسة!","حشرات","لا شيء"], c:1,exp:"النقاط خلايا - كانت مخفية تماماً!"},
+  {stage:2, icon:"🍃", name:"ورقة شجر - شعيرات مخفية", bg:"#F0FDF4", emoji:"🟢", lensEmoji:"🌱", instruction:"الشعيرات على الحواف دقيقة جداً - مخفية!", targets:[{x:20,y:50,label:"🌱",name:"شعيرات",detail:"🌱 شعيرات دقيقة"},{x:80,y:50,label:"🌱",name:"شعيرات",detail:"🌱 شعيرات دقيقة"}], q:"أين كانت الشعيرات قبل العدسة؟", opts:["ظاهرة","مخفية - دقيقة جداً لا ترى بالعين","للزينة","خطأ"], c:1, exp:"الشعيرات دقيقة جداً - مخفية بدون عدسة!"},
+  {stage:2, icon:"🍃", name:"ورقة شجر - لمعان مخفي", bg:"#F0FDF4", emoji:"🟢", lensEmoji:"✨", instruction:"لمعان سطح الورقة وخلاياها مخفي!", targets:[{x:50,y:40,label:"✨",name:"لمعان",detail:"✨ لمعان سطح"},{x:50,y:60,label:"🌿",name:"سطح",detail:"🌿 سطح أملس"}], q:"ماذا تستنتجين؟", opts:["بسيطة","الورقة تبدو لون أخضر فقط بدون عدسة، بالعدسة يظهر عالم مخفي: عروق، خلايا، شعيرات","لا شيء","فارغة"], c:1, exp:"الورقة: بدون عدسة لون فقط، بالعدسة عالم مخفي!"},
+  {stage:3, icon:"🌍", name:"التربة - طبقات مخفية", bg:"#FDE68A", emoji:"🟤", lensEmoji:"🪨", instruction:"بدون عدسة ترين تراب بني فقط - حركي العدسة ليظهر ما تحتها!", targets:[{x:30,y:30,label:"🪨",name:"حصى",detail:"🪨 حصى صغير"},{x:60,y:60,label:"🌿",name:"جذر",detail:"🌿 جذر متفرع"}], q:"ماذا كان مخفياً تحت التراب؟", opts:["لا شيء","طبقات وحصى وجذور - كان يبدو تراب فقط!","ماء","هواء"], c:1, exp:"بدون عدسة: تراب بني فقط. بالعدسة: طبقات، حصى، جذور مخفية!"},
+  {stage:3, icon:"🌍", name:"التربة - نمل مخفي", bg:"#FDE68A", emoji:"🟤", lensEmoji:"🐜", instruction:"النمل مخفي تحت التراب - حركي العدسة!", targets:[{x:25,y:30,label:"🐜",name:"نملة",detail:"🐜 نملة صغيرة"},{x:70,y:50,label:"🐜",name:"نملة",detail:"🐜 نملة صغيرة"}], q:"أين كان النمل قبل العدسة؟", opts:["ظاهر","مخفي تحت التراب - لا يرى بدون عدسة","نائم","في السماء"], c:1, exp:"النمل مخفي تحت التراب!"},
+  {stage:3, icon:"🌍", name:"التربة - دودة مخفية", bg:"#FDE68A", emoji:"🟤", lensEmoji:"🪱", instruction:"دودة الأرض مخفية في التربة!", targets:[{x:30,y:60,label:"🪱",name:"دودة",detail:"🪱 دودة وردية"},{x:60,y:60,label:"🪱",name:"حلقات",detail:"🪱 حلقات جسم"}], q:"ما وظيفة الدودة المخفية؟", opts:["مؤذية","تقلب التربة وتجعلها خصبة - كانت مخفية!","تأكل النباتات","لا فائدة"], c:1, exp:"الدودة كانت مخفية، تقلب التربة!"},
+  {stage:3, icon:"🌍", name:"التربة - بذور مخفية", bg:"#FDE68A", emoji:"🟤", lensEmoji:"🌱", instruction:"البذور مدفونة ومخفية!", targets:[{x:30,y:40,label:"🌱",name:"بذرة",detail:"🌱 بذرة صغيرة"},{x:75,y:50,label:"🌱",name:"بذرة",detail:"🌱 بذرة صغيرة"}], q:"أين كانت البذور؟", opts:["ظاهرة","مدفونة ومخفية تحت التراب - لا ترى بدون عدسة","لا شيء","في السماء"], c:1, exp:"البذور مدفونة ومخفية تحت التراب!"},
+  {stage:3, icon:"🌍", name:"التربة - فطريات مخفية", bg:"#FDE68A", emoji:"🟤", lensEmoji:"🍄", instruction:"الفطريات والجذور الدقيقة مخفية تماماً!", targets:[{x:30,y:20,label:"🍄",name:"فطريات",detail:"🍄 فطريات بيضاء"},{x:50,y:70,label:"🌿",name:"جذور",detail:"🌿 جذور دقيقة"}], q:"ماذا تستنتجين من فحص التربة؟", opts:["فارغة","التربة تبدو تراب فقط بدون عدسة، بالعدسة يظهر عالم حي مخفي: طبقات، جذور، نمل، دود، بذور، فطريات","لا شيء","تراب فقط"], c:1, exp:"التربة: بدون عدسة تراب فقط، بالعدسة عالم حي مخفي!"}
 ];
 
 let idx=0, score=0, hearts=3, correct=0, found=0, answered=false;
-
 function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active');}
-
-function startGame(){
-  idx=0; score=0; hearts=3; correct=0;
-  document.getElementById('score').textContent='⭐0';
-  document.getElementById('hearts').textContent='❤️❤️❤️';
-  loadMission();
-}
-
+function startGame(){idx=0; score=0; hearts=3; correct=0; document.getElementById('score').textContent='⭐0'; document.getElementById('hearts').textContent='❤️❤️❤️'; loadMission();}
 function loadMission(){
   const m=LEVELS[idx];
   document.getElementById('stageName').textContent=m.icon+' المرحلة '+m.stage+': '+m.name;
@@ -127,130 +129,57 @@ function loadMission(){
   document.getElementById('counter').textContent='مهمة '+(idx+1)+' من 15';
   document.getElementById('bar').style.width=(idx/15*100)+'%';
   document.getElementById('scene').style.background=m.bg;
-  document.getElementById('sceneContent').textContent=m.emoji;
-  document.getElementById('lensContent').textContent=m.emoji;
+  document.getElementById('sceneBg').textContent=m.emoji;
+  document.getElementById('lensInner').textContent=m.lensEmoji;
   document.getElementById('found').textContent='🔍 0/'+m.targets.length;
   document.getElementById('qbox').style.display='none';
-  document.getElementById('qtext').textContent='';
-  document.getElementById('opts').innerHTML='';
-  document.getElementById('explain').style.display='none';
-  document.getElementById('nextBtn').style.display='none';
+  document.getElementById('qtext').textContent=''; document.getElementById('opts').innerHTML=''; document.getElementById('explain').style.display='none'; document.getElementById('nextBtn').style.display='none';
   answered=false; found=0;
-
-  const targetsDiv=document.getElementById('targets');
-  targetsDiv.innerHTML='';
+  const dotsDiv=document.getElementById('dots'); const detailsDiv=document.getElementById('details');
+  dotsDiv.innerHTML=''; detailsDiv.innerHTML='';
   m.targets.forEach(t=>{
-    const btn=document.createElement('button');
-    btn.className='target';
-    btn.style.left=t.x+'%'; btn.style.top=t.y+'%';
-    btn.style.transform='translate(-50%,-50%)';
-    btn.textContent=t.label;
-    btn.onclick=()=>hitTarget(btn);
-    targetsDiv.appendChild(btn);
+    const dot=document.createElement('div'); dot.className='hidden-dot'; dot.style.left=t.x+'%'; dot.style.top=t.y+'%'; dotsDiv.appendChild(dot);
+    const detail=document.createElement('div'); detail.className='detail'; detail.style.left=t.x+'%'; detail.style.top=t.y+'%'; detail.dataset.x=t.x; detail.dataset.y=t.y; detail.innerHTML='<div style="font-size:20px">'+t.label+'</div><div style="font-size:8px;margin-top:2px">'+t.name+'</div>'; detail.onclick=()=>hitDetail(detail); detailsDiv.appendChild(detail);
   });
-
-  show('s1');
-  setupLens();
+  show('s1'); setupLens();
 }
-
 function setupLens(){
-  const scene=document.getElementById('scene');
-  const lens=document.getElementById('lens');
-  scene.onmousemove=function(e){
-    const r=scene.getBoundingClientRect();
-    const x=e.clientX-r.left, y=e.clientY-r.top;
+  const scene=document.getElementById('scene'); const lens=document.getElementById('lens'); const details=document.querySelectorAll('.detail'); const dots=document.querySelectorAll('.hidden-dot');
+  function updateLens(e){
+    const r=scene.getBoundingClientRect(); let cx,cy; if(e.touches){cx=e.touches[0].clientX; cy=e.touches[0].clientY;} else {cx=e.clientX; cy=e.clientY;}
+    const x=cx-r.left, y=cy-r.top; const xPercent=x/r.width*100; const yPercent=y/r.height*100;
     if(x<0||y<0||x>r.width||y>r.height){lens.style.display='none'; return;}
-    lens.style.display='block';
-    lens.style.left=(x-80)+'px';
-    lens.style.top=(y-80)+'px';
-  };
-  scene.onmouseleave=function(){lens.style.display='none';};
-  scene.ontouchmove=function(e){
-    e.preventDefault();
-    const r=scene.getBoundingClientRect();
-    const x=e.touches[0].clientX-r.left, y=e.touches[0].clientY-r.top;
-    lens.style.display='block';
-    lens.style.left=(x-80)+'px';
-    lens.style.top=(y-80)+'px';
-  };
-}
-
-function hitTarget(btn){
-  if(btn.classList.contains('found')) return;
-  btn.classList.add('found');
-  btn.textContent='✅ '+btn.textContent;
-  found++;
-  document.getElementById('found').textContent='🔍 '+found+'/'+document.querySelectorAll('.target').length;
-  if(found>=document.querySelectorAll('.target').length){
-    setTimeout(showQuestion,400);
+    lens.style.display='block'; lens.style.left=(x-90)+'px'; lens.style.top=(y-90)+'px';
+    details.forEach((detail,i)=>{
+      const tx=parseFloat(detail.dataset.x); const ty=parseFloat(detail.dataset.y); const dist=Math.hypot(xPercent-tx, yPercent-ty);
+      if(dist<18 &&!detail.classList.contains('found')){detail.classList.add('visible'); if(dots[i]) dots[i].style.opacity='0.2';}
+      else if(!detail.classList.contains('found') && dist>=22){detail.classList.remove('visible'); if(dots[i]) dots[i].style.opacity='1';}
+    });
   }
+  scene.onmousemove=updateLens; scene.ontouchmove=function(e){e.preventDefault(); updateLens(e);}; scene.onmouseleave=function(){lens.style.display='none'; document.querySelectorAll('.detail').forEach(d=>{if(!d.classList.contains('found')) d.classList.remove('visible');}); document.querySelectorAll('.hidden-dot').forEach(dot=>dot.style.opacity='1');};
 }
-
+function hitDetail(detail){if(!detail.classList.contains('visible') || detail.classList.contains('found')) return; detail.classList.add('found'); detail.classList.remove('visible'); found++; document.getElementById('found').textContent='🔍 '+found+'/'+document.querySelectorAll('.detail').length; if(found>=document.querySelectorAll('.detail').length){setTimeout(showQuestion,500);}}
 function showQuestion(){
-  const m=LEVELS[idx];
-  document.getElementById('qtext').textContent=m.q;
-  const optsDiv=document.getElementById('opts');
-  optsDiv.innerHTML='';
-  m.opts.forEach((opt,i)=>{
-    const b=document.createElement('button');
-    b.className='opt';
-    b.innerHTML='<span style="background:#fff;border:2px solid #222;border-radius:50%;width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;margin-left:8px">'+['أ','ب','ج','د'][i]+'</span>'+opt;
-    b.onclick=()=>answer(i);
-    optsDiv.appendChild(b);
-  });
+  const m=LEVELS[idx]; document.getElementById('qtext').textContent=m.q; const optsDiv=document.getElementById('opts'); optsDiv.innerHTML='';
+  m.opts.forEach((opt,i)=>{const b=document.createElement('button'); b.className='opt'; b.innerHTML='<span style="background:#fff;border:2px solid #222;border-radius:50%;width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;margin-left:8px">'+['أ','ب','ج','د'][i]+'</span>'+opt; b.onclick=()=>answer(i); optsDiv.appendChild(b);});
   document.getElementById('qbox').style.display='block';
 }
-
 function answer(i){
-  if(answered) return;
-  answered=true;
-  const m=LEVELS[idx];
-  const isCorrect=i===m.c;
-  document.querySelectorAll('.opt').forEach((o,j)=>{
-    if(j===m.c) o.classList.add('correct');
-    if(j===i && j!==m.c) o.classList.add('wrong');
-    o.style.pointerEvents='none';
-  });
+  if(answered) return; answered=true; const m=LEVELS[idx]; const isCorrect=i===m.c;
+  document.querySelectorAll('.opt').forEach((o,j)=>{if(j===m.c) o.classList.add('correct'); if(j===i && j!==m.c) o.classList.add('wrong'); o.style.pointerEvents='none';});
   const exp=document.getElementById('explain');
-  if(isCorrect){
-    correct++; score+=100;
-    exp.innerHTML='✅ برافو! '+m.exp+'<br><b style="background:#FFD93D;padding:2px 6px;border-radius:8px;border:2px solid #222">+100 ⭐</b>';
-  }else{
-    hearts--;
-    exp.innerHTML='❌ الصحيح: '+m.opts[m.c]+'<br>'+m.exp;
-    if(hearts<=0){
-      setTimeout(()=>{document.getElementById('loseText').textContent='وصلت للمهمة '+(idx+1)+' من 15'; show('s4');},800);
-    }
-  }
-  exp.style.display='block';
-  document.getElementById('score').textContent='⭐'+score;
-  document.getElementById('hearts').textContent='❤️'.repeat(hearts)+'🤍'.repeat(3-hearts);
+  if(isCorrect){correct++; score+=100; exp.innerHTML='✅ برافو! '+m.exp+'<br><b style="background:#FFD93D;padding:2px 6px;border-radius:8px;border:2px solid #222">+100 ⭐</b>';}
+  else{hearts--; exp.innerHTML='❌ الصحيح: '+m.opts[m.c]+'<br>'+m.exp; if(hearts<=0){setTimeout(()=>{document.getElementById('loseText').textContent='وصلت للمهمة '+(idx+1)+' من 15'; show('s4');},800);}}
+  exp.style.display='block'; document.getElementById('score').textContent='⭐'+score; document.getElementById('hearts').textContent='❤️'.repeat(hearts)+'🤍'.repeat(3-hearts);
   if(hearts>0) document.getElementById('nextBtn').style.display='block';
 }
-
 function nextMission(){
-  if(!answered) return;
-  idx++;
-  if(idx>=15){
-    document.getElementById('finalScore').textContent=score;
-    document.getElementById('finalCorrect').textContent=correct+'/15';
-    document.getElementById('finalPercent').textContent=Math.round(correct/15*100)+'%';
-    document.getElementById('bar').style.width='100%';
-    show('s3');
-    return;
-  }
+  if(!answered) return; idx++;
+  if(idx>=15){document.getElementById('finalScore').textContent=score; document.getElementById('finalCorrect').textContent=correct+'/15'; document.getElementById('bar').style.width='100%'; show('s3'); return;}
   if(idx%5===0){
-    const stageNum=Math.floor(idx/5)+1;
-    const icons=["","🪲","🍃","🌍"];
-    const names=["","خنفساء الروث","ورقة شجر","تربة"];
-    document.getElementById('transIcon').textContent=icons[stageNum];
-    document.getElementById('transTitle').textContent='انتقلتِ للمرحلة '+stageNum+': '+names[stageNum];
-    document.getElementById('transDesc').textContent='أنهيت '+idx+' مهام - برافو! 🎉';
-    show('s2');
-    setTimeout(()=>{loadMission();},2000);
-  }else{
-    loadMission();
-  }
+    const stageNum=Math.floor(idx/5)+1; const icons=["","🪲","🍃","🌍"]; const names=["","خنفساء الروث","ورقة شجر","تربة"];
+    document.getElementById('transIcon').textContent=icons[stageNum]; document.getElementById('transTitle').textContent='انتقلتِ للمرحلة '+stageNum+': '+names[stageNum]; document.getElementById('transDesc').textContent='أنهيت '+idx+' فحص خفي - برافو! 🎉'; show('s2'); setTimeout(()=>{loadMission();},2000);
+  }else{loadMission();}
 }
 </script>
 </body>
