@@ -3,254 +3,255 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>فحص كامل - انتقال مضمون 100% - عالم ندى</title>
+<title>لعبة نهائية بسيطة - انتقال مضمون</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap');
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Cairo',sans-serif}
-body{background:#FFFBEB;color:#2D2D2D;min-height:100vh}
-.header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#fff;border:3px solid #2D2D2D;border-radius:20px;box-shadow:6px 6px 0 #2D2D2D;margin:12px}
-.badge{padding:6px 12px;border-radius:20px;border:2.5px solid #2D2D2D;font-size:12px;font-weight:800;box-shadow:3px 3px 0 #2D2D2D}
-.badge.s{background:#FFD93D}.badge.h{background:#FF6B9D;color:#fff}.badge.l{background:#4D96FF;color:#fff}
-.container{max-width:860px;margin:0 auto;padding:0 12px 12px}
-.card{background:#fff;border:3px solid #2D2D2D;border-radius:24px;padding:18px;box-shadow:8px 8px 0 #2D2D2D}
-.btn{width:100%;height:56px;border:3px solid #2D2D2D;border-radius:18px;background:linear-gradient(135deg,#FFD93D,#FF8C42);font-weight:900;font-size:17px;cursor:pointer;box-shadow:6px 6px 0 #2D2D2D}
-.progress-wrap{height:14px;background:#fff;border:3px solid #2D2D2D;border-radius:20px;overflow:hidden;margin:10px 0;box-shadow:3px 3px 0 #2D2D2D}
-.progress-bar{height:100%;background:linear-gradient(90deg,#FFD93D,#FF8C42,#FF6B9D);width:0%;transition:width 0.5s}
-.stage-tag{padding:6px 14px;border-radius:20px;background:#4D96FF;color:#fff;border:2.5px solid #2D2D2D;font-size:11px;font-weight:800;box-shadow:3px 3px 0 #2D2D2D;display:inline-flex;margin-bottom:10px}
-.scene{position:relative;width:100%;height:480px;border-radius:20px;overflow:hidden;border:3.5px solid #2D2D2D;background:#fff;box-shadow:6px 6px 0 #2D2D2D}
-.scene-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
-.lens{position:absolute;width:200px;height:200px;border-radius:50%;border:6px solid #FFD93D;background:rgba(255,255,255,0.95);box-shadow:0 0 0 4px #2D2D2D,0 0 0 10px rgba(255,217,61,0.25);pointer-events:none;z-index:10;overflow:hidden;display:none}
-.lens-handle{position:absolute;width:90px;height:22px;background:#FF8C42;border:3px solid #2D2D2D;border-left:none;border-radius:0 14px 14px 0;top:50%;left:100%;transform:translateY(-50%);box-shadow:4px 4px 0 #2D2D2D}
-.lens-inner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transform:scale(2.5)}
-.hit{position:absolute;width:70px;height:50px;border-radius:16px;background:#fff;border:3px solid #2D2D2D;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;font-weight:900;box-shadow:4px 4px 0 #2D2D2D;cursor:pointer;z-index:5;transition:all 0.2s}
-.hit:hover{transform:translate(-50%,-50%) scale(1.1)}
-.hit.found{background:#FFD93D;transform:translate(-50%,-50%) scale(0.9);pointer-events:none;opacity:0.7}
-.hit.found::after{content:'✅';position:absolute;top:-10px;right:-10px;font-size:18px}
-.qbox{margin-top:12px;background:#FFFBEB;border:3px solid #2D2D2D;border-radius:18px;padding:14px;box-shadow:5px 5px 0 #2D2D2D}
-.opt{width:100%;text-align:right;padding:12px 14px;border-radius:14px;border:2.5px solid #2D2D2D;background:#fff;font-size:13px;font-weight:700;cursor:pointer;margin-bottom:8px;display:flex;gap:10px;box-shadow:3px 3px 0 #2D2D2D}
-.opt.c{background:#6BCB77;color:#fff}.opt.w{background:#FF6B9D;color:#fff}.opt.s{background:#FFD93D}
-.exp{margin-top:10px;padding:12px;border-radius:12px;background:#fff;border:2.5px solid #2D2D2D;font-size:12px;display:none;box-shadow:3px 3px 0 #2D2D2D}
-.exp.show{display:block}
-.inst{font-size:12px;font-weight:800;margin:8px 0;padding:10px 12px;background:#fff;border:2.5px solid #2D2D2D;border-radius:14px;box-shadow:4px 4px 0 #2D2D2D}
-.screen{display:none}.screen.active{display:flex;flex-direction:column}
-.center{justify-content:center;align-items:center;text-align:center}
-.hidden{display:none!important}
+body{background:#FFFBEB;color:#222;min-height:100vh}
+.header{display:flex;justify-content:space-between;padding:12px;background:#fff;border:3px solid #222;border-radius:16px;margin:10px}
+.card{background:#fff;border:3px solid #222;border-radius:20px;padding:16px;box-shadow:6px 6px 0 #222;margin:10px}
+.btn{width:100%;height:50px;border:3px solid #222;border-radius:14px;background:#FFD93D;font-weight:900;font-size:16px;cursor:pointer;box-shadow:4px 4px 0 #222}
+.btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 #222}
+.progress{height:12px;background:#fff;border:3px solid #222;border-radius:20px;overflow:hidden;margin:10px}
+.bar{height:100%;background:linear-gradient(90deg,#FFD93D,#FF8C42);width:0%;transition:width 0.5s}
+.scene{position:relative;width:100%;height:380px;border:3px solid #222;border-radius:16px;overflow:hidden;background:#fff;display:flex;align-items:center;justify-content:center}
+.lens{position:absolute;width:160px;height:160px;border-radius:50%;border:5px solid #FFD93D;background:rgba(255,255,255,0.9);box-shadow:0 0 0 3px #222;pointer-events:none;z-index:10;display:none;overflow:hidden}
+.lens-handle{position:absolute;width:70px;height:18px;background:#FF8C42;border:3px solid #222;border-left:none;left:100%;top:50%;transform:translateY(-50%);border-radius:0 10px 10px 0}
+.target{position:absolute;min-width:70px;height:44px;border-radius:12px;background:#fff;border:3px solid #222;font-size:12px;font-weight:900;box-shadow:3px 3px 0 #222;cursor:pointer;z-index:5}
+.target.found{background:#FFD93D;pointer-events:none}
+.qbox{margin-top:10px;background:#FFFBEB;border:3px solid #222;border-radius:14px;padding:12px}
+.opt{width:100%;padding:10px;border:3px solid #222;border-radius:10px;background:#fff;margin-bottom:6px;font-weight:700;cursor:pointer;text-align:right}
+.opt.correct{background:#6BCB77;color:#fff}.opt.wrong{background:#FF6B9D;color:#fff}
+.screen{display:none}.screen.active{display:block}
 </style>
 </head>
 <body>
-<div class="container">
-  <div class="header">
-    <div style="font-weight:900">🔍 عالم <span style="background:#FFD93D;padding:2px 8px;border-radius:10px;border:2px solid #2D2D2D">ندى</span> - فحص كامل</div>
-    <div style="display:flex;gap:7px">
-      <div class="badge s" id="scoreBadge">⭐ 0</div>
-      <div class="badge h" id="heartsBadge">❤️❤️❤️</div>
-      <div class="badge l" id="levelBadge">مستوى 1</div>
-    </div>
-  </div>
+<div class="header">
+  <div style="font-weight:900">🔍 عالم ندى</div>
+  <div><span id="score">⭐0</span> <span id="hearts">❤️❤️❤️</span> <span id="level">مستوى 1</span></div>
+</div>
 
-  <div class="screen active center" id="introScreen">
-    <div class="card" style="max-width:600px;width:100%">
-      <div style="font-size:48px;margin:10px 0">🔍🪲🍃🌍</div>
-      <h1 style="font-size:24px;font-weight:900">فحص كامل بالعدسة<br><span style="background:#FFD93D;padding:4px 14px;border-radius:14px;border:3px solid #2D2D2D;box-shadow:4px 4px 0 #2D2D2D;display:inline-block;margin-top:6px">انتقال مضمون 100%</span></h1>
-      <p style="font-size:11px;font-weight:700;margin:12px 0;background:#fff;border:2px solid #2D2D2D;border-radius:12px;padding:8px">✅ تم إصلاح الانتقال - الآن تنتقل بين المستويات تلقائياً<br>✅ العدسة لا تمنع الضغط - الأهداف قابلة للضغط مباشرة<br>✅ كل مرحلة 5 أسئلة - المجموع 15</p>
-      <button class="btn" id="startBtn">ابدأ الفحص 🔬🚀</button>
-    </div>
+<div class="screen active" id="s0" style="text-align:center;padding:20px">
+  <div class="card">
+    <div style="font-size:40px">🔍🪲🍃🌍</div>
+    <h2>فحص كامل بالعدسة</h2>
+    <p style="font-size:12px;margin:10px 0">المرحلة 1: خنفساء (5) - المرحلة 2: ورقة (5) - المرحلة 3: تربة (5)<br>العدسة تكبر - اضغطي الأهداف البيضاء - جاوبي - انتقلي تلقائياً</p>
+    <button class="btn" onclick="startGame()">ابدأي 🔬</button>
   </div>
+</div>
 
-  <div class="screen" id="playScreen">
-    <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
-    <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:800;margin-bottom:8px">
-      <span id="qCounter" style="background:#fff;border:2px solid #2D2D2D;padding:4px 10px;border-radius:20px;box-shadow:2px 2px 0 #2D2D2D">مهمة 1 من 15</span>
-      <span id="foundCounter" style="background:#FFD93D;border:2px solid #2D2D2D;padding:4px 10px;border-radius:20px;box-shadow:2px 2px 0 #2D2D2D">🔍 0 / 2</span>
-    </div>
-    <div class="card" style="padding:14px">
-      <div class="stage-tag" id="stageTag">المرحلة 1</div>
-      <div class="inst" id="instruction"></div>
-      <div class="scene" id="scene">
-        <div class="scene-bg" id="sceneBg"></div>
-        <div class="lens" id="lens"><div class="lens-inner" id="lensInner"></div><div class="lens-handle"></div></div>
-        <div id="targetsContainer"></div>
-      </div>
-      <div class="qbox hidden" id="qBox">
-        <h3 style="font-size:14px;font-weight:900;margin-bottom:8px" id="qText"></h3>
-        <div id="optionsContainer"></div>
-        <div class="exp" id="explainBox"></div>
-        <button class="btn hidden" id="nextBtn" style="margin-top:10px;height:48px">التالي ➡️🎉</button>
-      </div>
-    </div>
+<div class="screen" id="s1">
+  <div class="progress"><div class="bar" id="bar"></div></div>
+  <div style="display:flex;justify-content:space-between;padding:0 10px;font-size:12px;font-weight:800">
+    <span id="counter">مهمة 1 من 15</span><span id="found">🔍 0/2</span>
   </div>
-
-  <div class="screen center" id="transScreen">
-    <div class="card" style="text-align:center;min-width:340px">
-      <div style="font-size:48px" id="transIcon">🎉</div>
-      <h2 style="font-size:20px;font-weight:900" id="transTitle">انتقلتِ للمستوى 2</h2>
-      <p style="font-size:12px;font-weight:700;margin-top:6px" id="transDesc"></p>
-      <div style="margin-top:12px;font-size:10px;opacity:0.6">الانتقال تلقائي بعد ثانيتين...</div>
+  <div class="card">
+    <div id="stageName" style="background:#4D96FF;color:#fff;padding:4px 10px;border-radius:12px;display:inline-block;font-size:11px;font-weight:800;border:2px solid #222">المرحلة 1</div>
+    <div id="instruction" style="margin:8px 0;background:#fff;border:2px solid #222;border-radius:10px;padding:8px;font-size:12px;font-weight:800"></div>
+    <div class="scene" id="scene">
+      <div id="sceneContent" style="font-size:100px"></div>
+      <div class="lens" id="lens"><div id="lensContent" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:80px;transform:scale(2)"></div><div class="lens-handle"></div></div>
+      <div id="targets"></div>
     </div>
-  </div>
-
-  <div class="screen center" id="winScreen">
-    <div class="card" style="text-align:center;max-width:520px;width:100%">
-      <div style="width:80px;height:80px;margin:0 auto 10px;border-radius:22px;background:linear-gradient(135deg,#FFD93D,#FF8C42);border:3px solid #2D2D2D;display:flex;align-items:center;justify-content:center;font-size:38px">🏆</div>
-      <h2>أنت عالمة مبدعة! 🔬✨</h2>
-      <div style="margin:14px 0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
-        <div style="background:#FFD93D;border:2.5px solid #2D2D2D;border-radius:14px;padding:10px"><div id="finalScore">0</div></div>
-        <div style="background:#6BCB77;border:2.5px solid #2D2D2D;border-radius:14px;padding:10px"><div id="finalCorrect">0/15</div></div>
-        <div style="background:#4D96FF;border:2.5px solid #2D2D2D;border-radius:14px;padding:10px"><div id="finalPercent">0%</div></div>
-      </div>
-      <button class="btn" id="replayWin">🔄 إعادة</button>
-    </div>
-  </div>
-
-  <div class="screen center" id="loseScreen">
-    <div class="card" style="text-align:center;max-width:420px;width:100%">
-      <div style="font-size:44px">🔬</div>
-      <h2>العدسة تحتاج صبر!</h2>
-      <p id="loseText"></p>
-      <button class="btn" id="retryBtn">🔄 حاولي مرة أخرى</button>
+    <div class="qbox" id="qbox" style="display:none">
+      <h3 id="qtext" style="font-size:13px;font-weight:900;margin-bottom:8px"></h3>
+      <div id="opts"></div>
+      <div id="explain" style="display:none;margin-top:8px;padding:8px;background:#fff;border:2px solid #222;border-radius:10px;font-size:11px"></div>
+      <button class="btn" id="nextBtn" style="display:none;margin-top:10px" onclick="nextMission()">التالي ➡️</button>
     </div>
   </div>
 </div>
 
+<div class="screen" id="s2" style="text-align:center;padding:40px 20px">
+  <div class="card">
+    <div style="font-size:50px" id="transIcon">🎉</div>
+    <h2 id="transTitle">انتقلتِ للمستوى 2</h2>
+    <p id="transDesc"></p>
+    <p style="font-size:11px;opacity:0.6;margin-top:10px">الانتقال تلقائي بعد ثانيتين...</p>
+  </div>
+</div>
+
+<div class="screen" id="s3" style="text-align:center;padding:20px">
+  <div class="card">
+    <div style="font-size:50px">🏆</div>
+    <h2>أنت عالمة مبدعة!</h2>
+    <p>النقاط: <span id="finalScore">0</span> | الصحيح: <span id="finalCorrect">0/15</span> | النسبة: <span id="finalPercent">0%</span></p>
+    <button class="btn" style="margin-top:12px" onclick="startGame()">إعادة 🔄</button>
+  </div>
+</div>
+
+<div class="screen" id="s4" style="text-align:center;padding:40px 20px">
+  <div class="card">
+    <div style="font-size:40px">🥺</div>
+    <h2>حاولي مرة أخرى</h2>
+    <p id="loseText"></p>
+    <button class="btn" style="margin-top:10px" onclick="startGame()">إعادة 🔄</button>
+  </div>
+</div>
+
 <script>
-const DATA = [
-  {stage:0, name:"خنفساء الروث - فحص الرأس والأرجل", icon:"🪲", bg:"#FFFBEB", svg:`<svg viewBox="0 0 200 160" width="200" height="160"><ellipse cx="100" cy="145" rx="60" ry="10" fill="rgba(0,0,0,0.15)"/><g stroke="#1a1a1a" stroke-width="5" stroke-linecap="round" fill="none"><path d="M70 95 Q40 100 25 115"/><path d="M75 105 Q45 115 30 135"/><path d="M130 95 Q160 100 175 115"/><path d="M125 105 Q155 115 170 135"/><path d="M65 85 Q35 80 20 85"/><path d="M135 85 Q165 80 180 85"/><path d="M75 75 Q55 55 40 45"/><path d="M125 75 Q145 55 160 45"/></g><g stroke="#1a1a1a" stroke-width="3" fill="none"><path d="M85 40 Q80 20 75 10"/><path d="M115 40 Q120 20 125 10"/></g><circle cx="75" cy="5" r="5" fill="#1a1a1a"/><circle cx="125" cy="5" r="5" fill="#1a1a1a"/><ellipse cx="100" cy="48" rx="28" ry="22" fill="#0a0a0a"/><circle cx="82" cy="45" r="11" fill="#000"/><circle cx="118" cy="45" r="11" fill="#000"/><circle cx="84" cy="42" r="4" fill="white"/><circle cx="120" cy="42" r="4" fill="white"/><ellipse cx="100" cy="75" rx="22" ry="14" fill="#111"/><ellipse cx="100" cy="105" rx="48" ry="38" fill="#0f0f0f" stroke="#000" stroke-width="2"/><ellipse cx="100" cy="102" rx="42" ry="32" fill="#1a1a1a"/></svg>`, instruction:"حركي العدسة فوق الخنفساء ثم اضغطي على الأهداف البيضاء - شوفي الرأس والعيون والقرون والأرجل", targets:[{x:50,y:20,label:"👁️ العيون"},{x:50,y:10,label:"📡 القرون"}]},
-  {stage:0, name:"خنفساء الروث - فحص الرأس والأرجل", icon:"🪲", bg:"#FFFBEB", svg:`<svg viewBox="0 0 200 160" width="200" height="160"><ellipse cx="100" cy="48" rx="28" ry="22" fill="#0a0a0a"/><circle cx="82" cy="45" r="11" fill="#000"/><circle cx="118" cy="45" r="11" fill="#000"/><circle cx="84" cy="42" r="4" fill="white"/><circle cx="120" cy="42" r="4" fill="white"/><ellipse cx="100" cy="75" rx="22" ry="14" fill="#111"/><ellipse cx="100" cy="105" rx="48" ry="38" fill="#0f0f0f"/><g stroke="#1a1a1a" stroke-width="5" fill="none"><path d="M65 85 Q35 80 20 85"/><path d="M135 85 Q165 80 180 85"/></g></svg>`, instruction:"افحصي الأرجل الأمامية - اضغطي على الهدفين", targets:[{x:25,y:50,label:"🦵 رجل يمنى"},{x:75,y:50,label:"🦵 رجل يسرى"}]},
-  {stage:0, name:"خنفساء الروث - فحص الرأس والأرجل", icon:"🪲", bg:"#FFFBEB", svg:`<svg viewBox="0 0 200 160" width="200" height="160"><ellipse cx="100" cy="105" rx="48" ry="38" fill="#0f0f0f"/><ellipse cx="100" cy="102" rx="42" ry="32" fill="#1a1a1a"/><g stroke="#1a1a1a" stroke-width="5" fill="none"><path d="M70 95 Q40 100 25 115"/><path d="M130 95 Q160 100 175 115"/></g></svg>`, instruction:"افحصي الأرجل الخلفية القوية ولمعان الظهر", targets:[{x:25,y:70,label:"🦵 خلفية"},{x:75,y:70,label:"✨ لمعان"}]},
-  {stage:0, name:"خنفساء الروث - فحص الرأس والأرجل", icon:"🪲", bg:"#FFFBEB", svg:`<svg viewBox="0 0 200 160" width="200" height="160"><ellipse cx="100" cy="48" rx="28" ry="22" fill="#0a0a0a"/><circle cx="82" cy="45" r="11" fill="#000"/><circle cx="118" cy="45" r="11" fill="#000"/><g stroke="#1a1a1a" stroke-width="3" fill="none"><path d="M85 40 Q80 20 75 10"/><path d="M115 40 Q120 20 125 10"/></g><circle cx="75" cy="5" r="5" fill="#1a1a1a"/><circle cx="125" cy="5" r="5" fill="#1a1a1a"/></svg>`, instruction:"افحصي قرون الاستشعار الحساسة", targets:[{x:30,y:20,label:"📡 قرن يمنى"},{x:70,y:20,label:"📡 قرن يسرى"}]},
-  {stage:0, name:"خنفساء الروث - فحص الرأس والأرجل", icon:"🪲", bg:"#FFFBEB", svg:`<svg viewBox="0 0 200 160" width="200" height="160"><ellipse cx="100" cy="105" rx="48" ry="38" fill="#0f0f0f"/><ellipse cx="100" cy="75" rx="22" ry="14" fill="#111"/><line x1="100" y1="70" x2="100" y2="130" stroke="#000" stroke-width="1.5"/></svg>`, instruction:"افحصي مفاصل الأرجل والخط الوسطي", targets:[{x:50,y:40,label:"📏 مفاصل"},{x:50,y:70,label:"📏 خط وسط"}]},
-  {stage:1, name:"ورقة شجر - فحص العروق", icon:"🍃", bg:"#F0FDF4", svg:`<svg viewBox="0 0 220 200" width="200" height="200"><path d="M110 10 Q180 60 170 130 Q150 190 110 195 Q70 190 50 130 Q40 60 110 10" fill="#6BCB77" stroke="#2D5A27" stroke-width="2.5"/><path d="M110 15 Q111 80 110 190" fill="none" stroke="#2D5A27" stroke-width="3.5"/><g stroke="#2D5A27" stroke-width="1.8" fill="none"><path d="M110 40 Q130 50 150 55"/><path d="M110 40 Q90 50 70 55"/><path d="M110 65 Q135 75 160 80"/><path d="M110 65 Q85 75 60 80"/></g></svg>`, instruction:"حركي العدسة فوق الورقة ثم اضغطي على العروق", targets:[{x:50,y:20,label:"🌿 وسطي"},{x:65,y:35,label:"🌿 جانبي"}]},
-  {stage:1, name:"ورقة شجر - فحص العروق", icon:"🍃", bg:"#F0FDF4", svg:`<svg viewBox="0 0 220 200" width="200" height="200"><path d="M110 10 Q180 60 170 130 Q150 190 110 195 Q70 190 50 130 Q40 60 110 10" fill="#6BCB77" stroke="#2D5A27" stroke-width="2.5"/><path d="M110 15 Q111 80 110 190" fill="none" stroke="#2D5A27" stroke-width="3.5"/><g stroke="#2D5A27" stroke-width="1.8" fill="none"><path d="M110 90 Q140 100 165 105"/><path d="M110 90 Q80 100 55 105"/></g></svg>`, instruction:"افحصي العروق الجانبية", targets:[{x:30,y:50,label:"🌿 جانبي"},{x:70,y:50,label:"🌿 جانبي"}]},
-  {stage:1, name:"ورقة شجر - فحص العروق", icon:"🍃", bg:"#F0FDF4", svg:`<svg viewBox="0 0 220 200" width="200" height="200"><path d="M110 10 Q180 60 170 130 Q150 190 110 195 Q70 190 50 130 Q40 60 110 10" fill="#6BCB77" stroke="#2D5A27" stroke-width="2.5"/><circle cx="100" cy="60" r="2" fill="#2D5A27" opacity="0.3"/></svg>`, instruction:"افحصي العروق الثانوية والخلايا", targets:[{x:50,y:40,label:"🔬 دقيقة"},{x:50,y:70,label:"🔬 خلايا"}]},
-  {stage:1, name:"ورقة شجر - فحص العروق", icon:"🍃", bg:"#F0FDF4", svg:`<svg viewBox="0 0 220 200" width="200" height="200"><path d="M110 10 Q180 60 170 130 Q150 190 110 195 Q70 190 50 130 Q40 60 110 10" fill="#6BCB77" stroke="#2D5A27" stroke-width="2.5"/></svg>`, instruction:"افحصي الشعيرات على الحواف", targets:[{x:25,y:50,label:"🌱 شعيرات"},{x:75,y:50,label:"🌱 شعيرات"}]},
-  {stage:1, name:"ورقة شجر - فحص العروق", icon:"🍃", bg:"#F0FDF4", svg:`<svg viewBox="0 0 220 200" width="200" height="200"><path d="M110 10 Q180 60 170 130 Q150 190 110 195 Q70 190 50 130 Q40 60 110 10" fill="#6BCB77" stroke="#2D5A27" stroke-width="2.5"/><ellipse cx="95" cy="55" rx="18" ry="12" fill="rgba(255,255,255,0.15)"/></svg>`, instruction:"افحصي لمعان سطح الورقة", targets:[{x:50,y:40,label:"✨ لمعان"},{x:50,y:60,label:"🌿 سطح"}]},
-  {stage:2, name:"التربة - عالم تحت الأرض", icon:"🌍", bg:"#FFFBEB", svg:`<svg viewBox="0 0 240 180" width="240" height="180"><rect x="0" y="0" width="240" height="60" fill="#D7B899"/><rect x="0" y="60" width="240" height="60" fill="#A67C52"/><rect x="0" y="120" width="240" height="60" fill="#8B5E3C"/><circle cx="30" cy="20" r="6" fill="#9CA3AF"/><g stroke="#5D4037" stroke-width="2.5" fill="none"><path d="M120 0 Q118 40 115 80"/><path d="M115 80 Q95 90 80 100"/></g></svg>`, instruction:"حركي العدسة فوق التربة - شوفي طبقات التربة والجذور", targets:[{x:30,y:30,label:"🪨 حصى"},{x:50,y:50,label:"🌿 جذر"}]},
-  {stage:2, name:"التربة - عالم تحت الأرض", icon:"🌍", bg:"#FFFBEB", svg:`<svg viewBox="0 0 240 180" width="240" height="180"><rect x="0" y="0" width="240" height="60" fill="#D7B899"/><ellipse cx="45" cy="25" rx="8" ry="3.5" fill="#1a1a1a"/><ellipse cx="160" cy="80" rx="7" ry="3" fill="#2a2a2a"/></svg>`, instruction:"افحصي النمل في التربة", targets:[{x:25,y:30,label:"🐜 نملة"},{x:70,y:50,label:"🐜 نملة"}]},
-  {stage:2, name:"التربة - عالم تحت الأرض", icon:"🌍", bg:"#FFFBEB", svg:`<svg viewBox="0 0 240 180" width="240" height="180"><rect x="0" y="60" width="240" height="60" fill="#A67C52"/><path d="M30 100 Q40 95 50 100 Q60 105 70 100 Q80 95 90 100" fill="none" stroke="#D48B7A" stroke-width="5" stroke-linecap="round"/></svg>`, instruction:"افحصي دودة الأرض", targets:[{x:30,y:60,label:"🪱 دودة"},{x:60,y:60,label:"🪱 حلقات"}]},
-  {stage:2, name:"التربة - عالم تحت الأرض", icon:"🌍", bg:"#FFFBEB", svg:`<svg viewBox="0 0 240 180" width="240" height="180"><rect x="0" y="0" width="240" height="60" fill="#D7B899"/><ellipse cx="70" cy="30" rx="5" ry="3.5" fill="#F5DEB3"/><ellipse cx="190" cy="50" rx="4.5" ry="3" fill="#F5DEB3"/></svg>`, instruction:"افحصي البذور المدفونة", targets:[{x:30,y:40,label:"🌱 بذرة"},{x:75,y:50,label:"🌱 بذرة"}]},
-  {stage:2, name:"التربة - عالم تحت الأرض", icon:"🌍", bg:"#FFFBEB", svg:`<svg viewBox="0 0 240 180" width="240" height="180"><rect x="0" y="0" width="240" height="180" fill="#D7B899"/><circle cx="60" cy="15" r="1.2" fill="white" opacity="0.7"/><g stroke="#5D4037" stroke-width="2.5" fill="none"><path d="M120 0 Q118 40 115 80 Q112 120 110 180"/></g></svg>`, instruction:"افحصي الفطريات والجذور الدقيقة", targets:[{x:30,y:20,label:"🍄 فطريات"},{x:50,y:70,label:"🌿 جذور"}]}
+const LEVELS = [
+  {stage:1, icon:"🪲", name:"خنفساء الروث - فحص الرأس", bg:"#FFFBEB", emoji:"🪲", instruction:"حركي العدسة فوق الخنفساء - اضغطي على العيون والقرون", targets:[{x:30,y:30,label:"👁️ عيون"},{x:70,y:20,label:"📡 قرون"}], q:"ماذا رأيتِ في رأس الخنفساء تحت العدسة؟", opts:["لا شيء","عيون سوداء بلمعان أبيض وقرون بكرة حساسة","عين واحدة","لا رأس"], c:1, exp:"الرأس: عينان بلمعان وقرنان بكرة حساسة."},
+  {stage:1, icon:"🪲", name:"خنفساء الروث - فحص الأرجل الأمامية", bg:"#FFFBEB", emoji:"🪲", instruction:"افحصي الأرجل الأمامية - اضغطي على الهدفين", targets:[{x:20,y:50,label:"🦵 يمنى"},{x:80,y:50,label:"🦵 يسرى"}], q:"كم عدد الأرجل الأمامية؟", opts:["لا يوجد","2 رجل أمامية قوية للحفر","4","8"], c:1, exp:"2 رجل أمامية قوية للحفر."},
+  {stage:1, icon:"🪲", name:"خنفساء الروث - فحص الظهر", bg:"#FFFBEB", emoji:"🪲", instruction:"افحصي الأرجل الخلفية ولمعان الظهر", targets:[{x:20,y:70,label:"🦵 خلفية"},{x:80,y:70,label:"✨ لمعان"}], q:"ماذا عن الأرجل الخلفية ولمعان الظهر؟", opts:["ضعيفة","أرجل خلفية قوية للدفع ولمعان كيتيني","لا فائدة","للزينة"], c:1, exp:"الخلفية قوية للدفع والظهر لامع من الكيتين."},
+  {stage:1, icon:"🪲", name:"خنفساء الروث - فحص القرون", bg:"#FFFBEB", emoji:"🪲", instruction:"افحصي قرون الاستشعار", targets:[{x:30,y:25,label:"📡 قرن"},{x:70,y:25,label:"📡 قرن"}], q:"ما وظيفة قرون الاستشعار؟", opts:["للزينة","أعضاء حساسة للشم واللمس","لا وظيفة","زائدة"], c:1, exp:"القرون للشم واللمس."},
+  {stage:1, icon:"🪲", name:"خنفساء الروث - فحص المفاصل", bg:"#FFFBEB", emoji:"🪲", instruction:"افحصي مفاصل الأرجل", targets:[{x:40,y:50,label:"📏 مفاصل"},{x:60,y:70,label:"📏 خط وسط"}], q:"ما أهمية العدسة في فحص الخنفساء؟", opts:["لا فائدة","بدون عدسة نقطة، بالعدسة عيون وقرون ومفاصل وشعيرات","تصغر","تغير اللون"], c:1, exp:"بدون عدسة نقطة، بالعدسة عالم كامل."},
+  {stage:2, icon:"🍃", name:"ورقة شجر - فحص العرق الوسطي", bg:"#F0FDF4", emoji:"🍃", instruction:"حركي العدسة فوق الورقة - اضغطي على العروق", targets:[{x:50,y:20,label:"🌿 وسطي"},{x:60,y:40,label:"🌿 جانبي"}], q:"ماذا رأيتِ في أعلى الورقة؟", opts:["لون أخضر فقط","عرق وسطي سميك وجانبي ينقلان الماء والغذاء","لا شيء","فارغة"], c:1, exp:"عرق وسطي وجانبي - شبكة نقل."},
+  {stage:2, icon:"🍃", name:"ورقة شجر - فحص العروق الجانبية", bg:"#F0FDF4", emoji:"🍃", instruction:"افحصي العروق الجانبية", targets:[{x:30,y:50,label:"🌿 جانبي"},{x:70,y:50,label:"🌿 جانبي"}], q:"ما وظيفة العروق الجانبية؟", opts:["لا يوجد","تنقل الغذاء من الوسطي للأطراف","للزينة","خطأ"], c:1, exp:"الجانبية تنقل الغذاء."},
+  {stage:2, icon:"🍃", name:"ورقة شجر - فحص العروق الدقيقة", bg:"#F0FDF4", emoji:"🍃", instruction:"افحصي العروق الثانوية والخلايا", targets:[{x:50,y:40,label:"🔬 دقيقة"},{x:50,y:70,label:"🔬 خلايا"}], q:"ماذا تمثل العروق الدقيقة والنقاط؟", opts:["غبار","عروق ثانوية دقيقة وخلايا مصنع الغذاء","حشرات","لا شيء"], c:1,exp:"الثانوية توزع، النقاط خلايا."},
+  {stage:2, icon:"🍃", name:"ورقة شجر - فحص الشعيرات", bg:"#F0FDF4", emoji:"🍃", instruction:"افحصي الشعيرات على الحواف", targets:[{x:20,y:50,label:"🌱 شعيرات"},{x:80,y:50,label:"🌱 شعيرات"}], q:"لماذا يوجد شعيرات على حافة الورقة؟", opts:["لا فائدة","لحماية الورقة وتقليل فقدان الماء","للزينة","خطأ"], c:1, exp:"الشعيرات تحمي وتقلل تبخر الماء."},
+  {stage:2, icon:"🍃", name:"ورقة شجر - فحص اللمعان", bg:"#F0FDF4", emoji:"🍃", instruction:"افحصي لمعان سطح الورقة", targets:[{x:50,y:40,label:"✨ لمعان"},{x:50,y:60,label:"🌿 سطح"}], q:"ماذا تستنتجين من فحص الورقة؟", opts:["بسيطة","الورقة عالم معقد: شبكة عروق، خلايا، شعيرات","لا شيء","فارغة"], c:1, exp:"الورقة عالم معقد."},
+  {stage:3, icon:"🌍", name:"التربة - فحص الطبقات والجذور", bg:"#FDE68A", emoji:"🌍", instruction:"حركي العدسة فوق التربة - شوفي الطبقات والجذور", targets:[{x:30,y:30,label:"🪨 حصى"},{x:60,y:60,label:"🌿 جذر"}], q:"ماذا رأيتِ في أعلى التربة؟", opts:["تراب فقط","طبقات تربة مختلفة وحصى وجذور","لا شيء","ماء"], c:1, exp:"طبقات بألوان مختلفة، حصى، جذور."},
+  {stage:3, icon:"🌍", name:"التربة - فحص النمل", bg:"#FDE68A", emoji:"🐜", instruction:"افحصي النمل في التربة", targets:[{x:25,y:30,label:"🐜 نملة"},{x:70,y:50,label:"🐜 نملة"}], q:"ماذا تفعل النملة في التربة؟", opts:["نائمة","تنقل غذاء وتنظف التربة وتحفر أنفاقاً","لا شيء","تأكل التربة"], c:1, exp:"النمل ينقل الغذاء وينظف ويحفر."},
+  {stage:3, icon:"🌍", name:"التربة - فحص الدودة", bg:"#FDE68A", emoji:"🪱", instruction:"افحصي دودة الأرض", targets:[{x:30,y:60,label:"🪱 دودة"},{x:60,y:60,label:"🪱 حلقات"}], q:"ما وظيفة دودة الأرض؟", opts:["مؤذية","تقلب التربة وتجعلها خصبة - صديقة الفلاح","تأكل النباتات","لا فائدة"], c:1, exp:"دودة الأرض تقلب التربة وتجعلها خصبة."},
+  {stage:3, icon:"🌍", name:"التربة - فحص البذور", bg:"#FDE68A", emoji:"🌱", instruction:"افحصي البذور المدفونة", targets:[{x:30,y:40,label:"🌱 بذرة"},{x:75,y:50,label:"🌱 بذرة"}], q:"ماذا عن البذور المدفونة؟", opts:["حجارة","بذور صغيرة ستنبت لتصبح نباتات جديدة","لا شيء","ماء"], c:1, exp:"بذور ستنبت لتصبح نباتات."},
+  {stage:3, icon:"🌍", name:"التربة - فحص الفطريات", bg:"#FDE68A", emoji:"🍄", instruction:"افحصي الفطريات والجذور الدقيقة", targets:[{x:30,y:20,label:"🍄 فطريات"},{x:50,y:70,label:"🌿 جذور"}], q:"ماذا تستنتجين من فحص التربة؟", opts:["فارغة","التربة عالم حي كامل: طبقات، جذور، كائنات، بذور، فطريات","لا شيء","تراب فقط"], c:1, exp:"التربة نظام متكامل لا نراه بدون عدسة."}
 ];
 
-const QUESTIONS = [
-  {q:"ماذا رأيتِ تحت العدسة في رأس خنفساء الروث؟",opts:["لا شيء","عيون سوداء كبيرة بلمعان أبيض وقرني استشعار بكرة حساسة","عين واحدة","لا يوجد رأس"],c:1,exp:"الرأس: عينان ببؤبؤ أبيض لامع وقرنان بكرة حساسة للشم."},
-  {q:"كم عدد الأرجل الأمامية؟",opts:["لا يوجد","2 رجل أمامية قوية للحفر","4","8"],c:1,exp:"2 رجل أمامية قوية للحفر."},
-  {q:"ماذا عن الأرجل الخلفية ولمعان الظهر؟",opts:["ضعيفة","أرجل خلفية قوية للدفع ولمعان كيتيني أملس","لا فائدة","للزينة"],c:1,exp:"الخلفية قوية للدفع، والظهر لامع من الكيتين."},
-  {q:"ماذا تمثل قرون الاستشعار؟",opts:["للزينة","أعضاء حساسة للشم واللمس","لا وظيفة","زائدة"],c:1,exp:"قرون الاستشعار للشم واللمس."},
-  {q:"ما أهمية فحص الخنفساء بالعدسة؟",opts:["لا فائدة","بدون عدسة نقطة، بالعدسة عيون وقرون ومفاصل وشعيرات ولمعان","تصغر","تغير اللون"],c:1,exp:"بدون عدسة نقطة، بالعدسة عالم كامل."},
-  {q:"ماذا رأيتِ في أعلى الورقة؟",opts:["لون أخضر فقط","عرق وسطي سميك وعرق جانبي ينقلان الماء والغذاء","لا شيء","فارغة"],c:1,exp:"عرق وسطي سميك وجانبي - شبكة نقل."},
-  {q:"ماذا عن العروق الجانبية؟",opts:["لا يوجد","عروق جانبية تنقل الغذاء","للزينة","خطأ"],c:1,exp:"الجانبية تنقل الغذاء."},
-  {q:"ماذا تمثل العروق الدقيقة والنقاط؟",opts:["غبار","عروق ثانوية دقيقة وخلايا نباتية مصنع الغذاء","حشرات","لا شيء"],c:1,exp:"الثانوية توزع، النقاط خلايا مصنع الغذاء."},
-  {q:"لماذا يوجد شعيرات على حافة الورقة؟",opts:["لا فائدة","لحماية الورقة وتقليل فقدان الماء","للزينة","خطأ"],c:1,exp:"الشعيرات تحمي وتقلل تبخر الماء."},
-  {q:"ماذا تستنتجين من فحص الورقة؟",opts:["بسيطة","الورقة عالم معقد: شبكة عروق، خلايا، شعيرات","لا شيء","فارغة"],c:1,exp:"الورقة عالم معقد."},
-  {q:"ماذا رأيتِ في أعلى التربة؟",opts:["تراب فقط","طبقات تربة مختلفة وحصى وجذور متفرعة","لا شيء","ماء"],c:1,exp:"طبقات بألوان مختلفة، حصى، جذور متفرعة."},
-  {q:"ماذا تفعل النملة في التربة؟",opts:["نائمة","تنقل غذاء وتنظف التربة وتحفر أنفاقاً","لا شيء","تأكل التربة"],c:1,exp:"النمل ينقل الغذاء وينظف ويحفر."},
-  {q:"ما وظيفة دودة الأرض؟",opts:["مؤذية","تقلب التربة وتجعلها خصبة - صديقة الفلاح","تأكل النباتات","لا فائدة"],c:1,exp:"دودة الأرض تقلب التربة وتجعلها خصبة."},
-  {q:"ماذا عن البذور المدفونة؟",opts:["حجارة","بذور صغيرة ستنبت لتصبح نباتات جديدة","لا شيء","ماء"],c:1,exp:"بذور ستنبت لتصبح نباتات."},
-  {q:"ماذا تستنتجين من فحص التربة؟",opts:["فارغة","التربة عالم حي كامل: طبقات، جذور، كائنات، بذور، فطريات - نظام متكامل","لا شيء","تراب فقط"],c:1,exp:"التربة نظام متكامل لا نراه بدون عدسة."}
-];
+let idx=0, score=0, hearts=3, correct=0, found=0, answered=false;
 
-let globalIndex=0, score=0, hearts=3, correctCount=0, found=0, isAnswered=false, firstAttempt=true;
-const scene=document.getElementById('scene');
-const sceneBg=document.getElementById('sceneBg');
-const lens=document.getElementById('lens');
-const lensInner=document.getElementById('lensInner');
-const targetsContainer=document.getElementById('targetsContainer');
-function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active');}
-function loadLevel(idx){
-  const data=DATA[idx];
-  sceneBg.innerHTML=data.svg;
-  scene.style.background=data.bg;
-  document.getElementById('instruction').textContent=data.instruction;
-  document.getElementById('stageTag').textContent=data.icon+" المرحلة "+(Math.floor(idx/5)+1)+": "+data.name;
-  document.getElementById('levelBadge').textContent="مستوى "+(Math.floor(idx/5)+1);
-  document.getElementById('progressBar').style.width=(idx/15*100)+"%";
-  document.getElementById('qCounter').textContent="مهمة "+(idx+1)+" من 15";
-  document.getElementById('foundCounter').textContent="🔍 0 / "+data.targets.length;
-  document.getElementById('qBox').classList.add('hidden');
-  document.getElementById('qText').textContent=''; document.getElementById('optionsContainer').innerHTML=''; document.getElementById('explainBox').classList.remove('show'); document.getElementById('nextBtn').classList.add('hidden');
-  isAnswered=false; found=0;
-  targetsContainer.innerHTML='';
-  data.targets.forEach(t=>{
-    const hit=document.createElement('button'); hit.className='hit'; hit.style.left=t.x+'%'; hit.style.top=t.y+'%'; hit.textContent=t.label; hit.onclick=function(){handleHit(hit);}; targetsContainer.appendChild(hit);
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active');}
+
+function startGame(){
+  idx=0; score=0; hearts=3; correct=0;
+  document.getElementById('score').textContent='⭐0';
+  document.getElementById('hearts').textContent='❤️❤️❤️';
+  loadMission();
+}
+
+function loadMission(){
+  const m=LEVELS[idx];
+  document.getElementById('stageName').textContent=m.icon+' المرحلة '+m.stage+': '+m.name;
+  document.getElementById('level').textContent='مستوى '+m.stage;
+  document.getElementById('instruction').textContent=m.instruction;
+  document.getElementById('counter').textContent='مهمة '+(idx+1)+' من 15';
+  document.getElementById('bar').style.width=(idx/15*100)+'%';
+  document.getElementById('scene').style.background=m.bg;
+  document.getElementById('sceneContent').textContent=m.emoji;
+  document.getElementById('lensContent').textContent=m.emoji;
+  document.getElementById('found').textContent='🔍 0/'+m.targets.length;
+  document.getElementById('qbox').style.display='none';
+  document.getElementById('qtext').textContent='';
+  document.getElementById('opts').innerHTML='';
+  document.getElementById('explain').style.display='none';
+  document.getElementById('nextBtn').style.display='none';
+  answered=false; found=0;
+
+  const targetsDiv=document.getElementById('targets');
+  targetsDiv.innerHTML='';
+  m.targets.forEach(t=>{
+    const btn=document.createElement('button');
+    btn.className='target';
+    btn.style.left=t.x+'%'; btn.style.top=t.y+'%';
+    btn.style.transform='translate(-50%,-50%)';
+    btn.textContent=t.label;
+    btn.onclick=()=>hitTarget(btn);
+    targetsDiv.appendChild(btn);
   });
-  showScreen('playScreen');
+
+  show('s1');
   setupLens();
 }
+
 function setupLens(){
-  function updateLens(e){
+  const scene=document.getElementById('scene');
+  const lens=document.getElementById('lens');
+  scene.onmousemove=function(e){
     const r=scene.getBoundingClientRect();
-    let cx,cy; if(e.touches){cx=e.touches[0].clientX; cy=e.touches[0].clientY;} else {cx=e.clientX; cy=e.clientY;}
-    const x=cx-r.left, y=cy-r.top;
+    const x=e.clientX-r.left, y=e.clientY-r.top;
     if(x<0||y<0||x>r.width||y>r.height){lens.style.display='none'; return;}
-    lens.style.display='block'; lens.style.left=(x-100)+'px'; lens.style.top=(y-100)+'px';
-    lensInner.innerHTML=DATA[globalIndex].svg;
-    lensInner.style.transform='scale(2.5)';
-  }
-  scene.onmousemove=updateLens;
-  scene.ontouchmove=function(e){e.preventDefault(); updateLens(e);};
+    lens.style.display='block';
+    lens.style.left=(x-80)+'px';
+    lens.style.top=(y-80)+'px';
+  };
   scene.onmouseleave=function(){lens.style.display='none';};
+  scene.ontouchmove=function(e){
+    e.preventDefault();
+    const r=scene.getBoundingClientRect();
+    const x=e.touches[0].clientX-r.left, y=e.touches[0].clientY-r.top;
+    lens.style.display='block';
+    lens.style.left=(x-80)+'px';
+    lens.style.top=(y-80)+'px';
+  };
 }
-function handleHit(hit){
-  if(hit.classList.contains('found')) return;
-  hit.classList.add('found'); hit.textContent='✅ '+hit.textContent; found++;
-  document.getElementById('foundCounter').textContent="🔍 "+found+" / "+document.querySelectorAll('.hit').length;
-  if(found>=document.querySelectorAll('.hit').length){setTimeout(showQuestion,500);}
-}
-function showQuestion(){
-  const qData=QUESTIONS[globalIndex];
-  document.getElementById('qText').textContent=qData.q;
-  const cont=document.getElementById('optionsContainer'); cont.innerHTML='';
-  qData.opts.forEach((opt,i)=>{
-    const b=document.createElement('button'); b.className='opt';
-    b.innerHTML='<span style="width:28px;height:28px;border-radius:50%;background:#fff;border:2.5px solid #2D2D2D;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900">'+['أ','ب','ج','د'][i]+'</span><span>'+opt+'</span>';
-    b.onclick=function(){handleAnswer(i);}; cont.appendChild(b);
-  });
-  document.getElementById('qBox').classList.remove('hidden');
-}
-function handleAnswer(idx){
-  if(isAnswered) return; isAnswered=true;
-  const qData=QUESTIONS[globalIndex];
-  const correct=idx===qData.c;
-  document.querySelectorAll('.opt').forEach((o,i)=>{if(i===qData.c) o.classList.add('c'); if(i===idx && i!==qData.c) o.classList.add('w'); if(i===idx) o.classList.add('s'); o.style.pointerEvents='none';});
-  const box=document.getElementById('explainBox');
-  if(correct){correctCount++;let add=100;if(firstAttempt) add+=50;score+=add;box.innerHTML='✅ <b>برافو!</b> '+qData.exp+'<br><span style="background:#FFD93D;padding:2px 8px;border-radius:10px;border:2px solid #2D2D2D;font-weight:900">+'+add+' ⭐</span>';}
-  else{hearts--;box.innerHTML='❌ <b>الصحيح:</b> '+qData.opts[qData.c]+'<br>'+qData.exp; firstAttempt=false; if(hearts<=0){setTimeout(showLose,800);}}
-  box.classList.add('show');
-  document.getElementById('scoreBadge').textContent='⭐ '+score;
-  document.getElementById('heartsBadge').textContent='❤️'.repeat(hearts)+'🤍'.repeat(3-hearts);
-  if(hearts>0) document.getElementById('nextBtn').classList.remove('hidden');
-}
-function nextLevel(){
-  if(!isAnswered) return;
-  globalIndex++;
-  if(globalIndex>=15){showWin(); return;}
-  if(globalIndex%5===0){
-    const nextStage=Math.floor(globalIndex/5);
-    const stageNames=["خنفساء الروث","ورقة شجر","تربة"];
-    const stageIcons=["🪲","🍃","🌍"];
-    const stageColors=["#FFD93D","#6BCB77","#A67C52"];
-    document.getElementById('transIcon').textContent=stageIcons[nextStage];
-    document.getElementById('transTitle').innerHTML='انتقلتِ للمرحلة '+(nextStage+1)+'<br><span style="background:'+stageColors[nextStage]+';padding:2px 10px;border-radius:12px;border:2.5px solid #2D2D2D;box-shadow:3px 3px 0 #2D2D2D">'+stageNames[nextStage]+'</span>';
-    document.getElementById('transDesc').textContent='أنهيت '+globalIndex+' فحص كامل - برافو! 🎉';
-    showScreen('transScreen');
-    setTimeout(function(){firstAttempt=true; loadLevel(globalIndex);},2000);
-  }else{
-    firstAttempt=true; loadLevel(globalIndex);
+
+function hitTarget(btn){
+  if(btn.classList.contains('found')) return;
+  btn.classList.add('found');
+  btn.textContent='✅ '+btn.textContent;
+  found++;
+  document.getElementById('found').textContent='🔍 '+found+'/'+document.querySelectorAll('.target').length;
+  if(found>=document.querySelectorAll('.target').length){
+    setTimeout(showQuestion,400);
   }
 }
-function showWin(){
-  showScreen('winScreen');
-  document.getElementById('finalScore').textContent=score;
-  document.getElementById('finalCorrect').textContent=correctCount+'/15';
-  document.getElementById('finalPercent').textContent=Math.round(correctCount/15*100)+'%';
-  document.getElementById('progressBar').style.width='100%';
+
+function showQuestion(){
+  const m=LEVELS[idx];
+  document.getElementById('qtext').textContent=m.q;
+  const optsDiv=document.getElementById('opts');
+  optsDiv.innerHTML='';
+  m.opts.forEach((opt,i)=>{
+    const b=document.createElement('button');
+    b.className='opt';
+    b.innerHTML='<span style="background:#fff;border:2px solid #222;border-radius:50%;width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;margin-left:8px">'+['أ','ب','ج','د'][i]+'</span>'+opt;
+    b.onclick=()=>answer(i);
+    optsDiv.appendChild(b);
+  });
+  document.getElementById('qbox').style.display='block';
 }
-function showLose(){showScreen('loseScreen'); document.getElementById('loseText').textContent='وصلت للمهمة '+(globalIndex+1)+' من 15.';}
-function start(){globalIndex=0;score=0;hearts=3;correctCount=0;isAnswered=false;firstAttempt=true;loadLevel(0);}
-document.getElementById('startBtn').onclick=start;
-document.getElementById('nextBtn').onclick=nextLevel;
-document.getElementById('retryBtn').onclick=start;
-document.getElementById('replayWin').onclick=start;
+
+function answer(i){
+  if(answered) return;
+  answered=true;
+  const m=LEVELS[idx];
+  const isCorrect=i===m.c;
+  document.querySelectorAll('.opt').forEach((o,j)=>{
+    if(j===m.c) o.classList.add('correct');
+    if(j===i && j!==m.c) o.classList.add('wrong');
+    o.style.pointerEvents='none';
+  });
+  const exp=document.getElementById('explain');
+  if(isCorrect){
+    correct++; score+=100;
+    exp.innerHTML='✅ برافو! '+m.exp+'<br><b style="background:#FFD93D;padding:2px 6px;border-radius:8px;border:2px solid #222">+100 ⭐</b>';
+  }else{
+    hearts--;
+    exp.innerHTML='❌ الصحيح: '+m.opts[m.c]+'<br>'+m.exp;
+    if(hearts<=0){
+      setTimeout(()=>{document.getElementById('loseText').textContent='وصلت للمهمة '+(idx+1)+' من 15'; show('s4');},800);
+    }
+  }
+  exp.style.display='block';
+  document.getElementById('score').textContent='⭐'+score;
+  document.getElementById('hearts').textContent='❤️'.repeat(hearts)+'🤍'.repeat(3-hearts);
+  if(hearts>0) document.getElementById('nextBtn').style.display='block';
+}
+
+function nextMission(){
+  if(!answered) return;
+  idx++;
+  if(idx>=15){
+    document.getElementById('finalScore').textContent=score;
+    document.getElementById('finalCorrect').textContent=correct+'/15';
+    document.getElementById('finalPercent').textContent=Math.round(correct/15*100)+'%';
+    document.getElementById('bar').style.width='100%';
+    show('s3');
+    return;
+  }
+  if(idx%5===0){
+    const stageNum=Math.floor(idx/5)+1;
+    const icons=["","🪲","🍃","🌍"];
+    const names=["","خنفساء الروث","ورقة شجر","تربة"];
+    document.getElementById('transIcon').textContent=icons[stageNum];
+    document.getElementById('transTitle').textContent='انتقلتِ للمرحلة '+stageNum+': '+names[stageNum];
+    document.getElementById('transDesc').textContent='أنهيت '+idx+' مهام - برافو! 🎉';
+    show('s2');
+    setTimeout(()=>{loadMission();},2000);
+  }else{
+    loadMission();
+  }
+}
 </script>
 </body>
 </html>
